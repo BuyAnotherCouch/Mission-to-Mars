@@ -1,16 +1,13 @@
-# Import Splinter and BeautifulSoup
+# Import Splinter, BeautifulSoup, and Pandas
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
-from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 import datetime as dt
 
-# Set the executable path and initialize the chrome browser in splinter
-executable_path = {'executable_path': ChromeDriverManager().install()}
 
 def scrape_all():
     # Initiate headless driver for deployment
-    browser = Browser("chrome", executable_path="chromedriver", headless=True)
+    browser = Browser("chrome", executable_path="C:/Users/jason/Desktop/Class/chromedriver.exe", headless=True)
 
     news_title, news_paragraph = mars_news(browser)
 
@@ -27,7 +24,10 @@ def scrape_all():
     browser.quit()
     return data
 
+
 def mars_news(browser):
+
+    # Scrape Mars News
     # Visit the mars nasa news site
     url = 'https://mars.nasa.gov/news/'
     browser.visit(url)
@@ -52,7 +52,6 @@ def mars_news(browser):
 
     return news_title, news_p
 
-# ## JPL Space Images Featured Image
 
 def featured_image(browser):
     # Visit URL
@@ -75,13 +74,10 @@ def featured_image(browser):
     except AttributeError:
         return None
 
-
     # Use the base url to create an absolute url
     img_url = f'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/{img_url_rel}'
 
     return img_url
-
-# ## Mars Facts
 
 def mars_facts():
     # Add try/except for error handling
